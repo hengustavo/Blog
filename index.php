@@ -54,7 +54,7 @@
                         ];
                     }
 
-                    $posts = $busca(
+                    $posts = Buscar(
                         'post',
                         [
                             'titulo',
