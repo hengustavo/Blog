@@ -1,74 +1,111 @@
 <!DOCTYPE html>
-<?php
-    require_once 'includes/funcoes.php';
-    require_once 'core/conexaoMySql.php';
-    require_once 'core/sql.php';
-    require_once 'core/mysql.php';
-
-    foreach($_GET as $indice => $dado){
-        $$indice = limparDados($dado);
-    }
-
-    $posts = buscar(
-        'post',
-        [
-            'titulo',
-            'data_postagem',
-            'texto',
-            '(select nome
-                from usuario
-                where usuario.id = post.usuario_id) as nome'
-        ],
-        [
-            ['id', '=', $post]
-        ]
-    );
-    $post = $posts[0];
-    $data_post = date_create($post['data_postagem']);
-    $data_post = date_format($data_post, 'd/m/Y H:i:s');
-
-?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $post['titulo']?></title>
-    <link rel="stylesheet" href="lib/bootstrap-4.2.1-dist/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <?php
+<html>
+    <head>
+        <litle></litle>
+        <link rel="stylesheet"
+            href="lib/bootstrap-4.2.1-dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <?php 
                     include 'includes/topo.php';
-                ?>
+                    include 'includes/validalogin.php' ?>
+                </div>
 
             </div>
-        </div>
-        <div class="row" style="min-height: 500px;">
-            <div class="col-md-12">
-                <?php include 'includes/menu.php';?>
+            <div class="row" style="min-height: 500px;">
+                <div class="col-md-12">
+                    <?php include 'includes/menu.php'; ?>
+                </div>
+                <div class="col-md-12" style="padding-top: 50px;">
+                    <?php
+                        require_once 'includes/funcoes.php';
+                        require_once 'core/conexaoMySql.php';
+                        require_once 'core/sql.php';
+                        require_once 'core/mysql.php';
+
+                        foreach($_GET as $indice => $dado){
+                            $$INDICE = limparDados($dado);
+                        }
+
+                        if(!empty($id)){
+                            $id = (int)$id;
+
+                            $criterio = [
+                                ['id', '=', $id]
+                            ];
+
+                            $retorno = buscar(
+                                'post',
+                                ['*'],
+                                $criterio
+                            );
+
+                            $entidade = $retorno[0];
+                        }
+                    ?>
+
+                    <h2>Post</h2>
+                    <form method="post" action="core/postRepositorio.php">
+                        <input type="hidden" name="acao"
+                            value="<?php echo empty($id) ? 'insert' : 'update' ?>">
+                        <input type="hidden" name="id"
+                            value="<?php echo $entidade['id'] ?? '' ?>">
+                        <div class="form-group">
+                                <label for="titulo">Título:</label>
+                                <input class="form-group" type="text"
+                                    require="require" id="titulo" name="titulo"
+                                    value="<?php echo $entidade['titulo'] ?? '' ?>">
+                        </div>
+                        <div class="form-group">
+                                <label for="texto">Texto:</label>
+                                <textarea class="form-control" type="text"
+                                    require="require" id="texto" name="texto" rows="5">
+                                    <?php echo $entidade['texto'] ?? '' ?>
+                                </textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="texto">Postar em:</label>
+                            <?php 
+                                $data = (!empty($entidade['data_postagem']))?
+                                    explode(' ', $entidade['data_postagem'])[0] : '';
+                                $hora = (!empty($entidade['data_postagem']))?
+                                    explode(' ', $entidade['data_postagem'])[1] : '';
+                            ?>
+                            <div class="row">
+                                <div class="col-md-3">  
+                                    <input class="form-control" type="date"
+                                        require="required"
+                                        id="data_postagem"
+                                        name="data_postagem"
+                                        value="<?php echo $data ?>">
+                                </div>
+                                <div class="col-md-3">  
+                                    <input class="form-control" type="time"
+                                        require="required"
+                                        id="hora_postagem"
+                                        name="hora_postagem"
+                                        value="<?php echo $hora ?>">
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="texto-right">  
+                            <button class="btn btn-success"
+                                    type="submit">Salvar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-10" style="padding-top: 50px;">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $post['titulo'] ?> </h5>
-                    <h5 class="card-subtitle mb-2 text-muted"> 
-                        <?php echo $data_post ?> Por <?php echo $post['nome'] ?>
-                    </h5>
-                    <div class="card-text">
-                        <?php echo html_entity_decode($post['texto']) ?>
-                    </div>
+            <div class="row">  
+                <div class="col-md-12">
+                        <?php
+                            include 'includes/rodape.php';
+                        ?>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <?php
-                    include 'includes/rodape.php';
-                ?>
-            </div>
-        </div>
-    </div>
-    <script src="lib/bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
-</body>
+        <script src="lib/bootstrap-4.2.1-dist/js/boostrap.min.js"></script>   
+    </body>
 </html>
