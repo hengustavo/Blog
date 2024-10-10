@@ -8,13 +8,13 @@
                 <a href="index.php" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="usuario_formulario.php" class="nav-link">Cadastre-se</a>
+                <a href="usuarioFormulario.php" class="nav-link">Cadastre-se</a>
             </li>
             <li class="nav-item">
-                <a href="login_formulario.php" class="nav-link">Login</a>
+                <a href="loginformulario.php" class="nav-link">Login</a>
             </li>
             <li class="nav-item">
-                <a href="post_formulario.php" class="nav-link">Incluir Post</a>
+                <a href="postFormulario.php" class="nav-link">Incluir Post</a>
             </li>
             <?php if((isset($_SESSION['login'])) 
             && ($_SESSION['login']['usuario']['adm'] === 1)) : ?>

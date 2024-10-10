@@ -19,7 +19,7 @@
                 <div class="col-md-10" style="padding-top: 50px;">
                     <?php
                         require_once 'includes/funcoes.php';
-                        require_once 'core/conexao_mysql.php';
+                        require_once 'core/conexaoMySql.php';
                         require_once 'core/sql.php';
                         require_once 'core/mysql.php';
 
@@ -40,7 +40,7 @@
                         }
                     ?>
                     <h2>Usuário</h2>
-                    <form method="post" action="core/usuario_repositorio.php">
+                    <form method="post" action="core/usuarioRepositorio.php">
                         <input type="hidden" name="acao"
                             value="<?php echo empty($id) ? 'insert' : 'update' ?>">
                         <input type="hidden" name="id"

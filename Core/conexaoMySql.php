@@ -6,7 +6,7 @@ function conecta() : mysqli
     $banco = 'blog';
     $port = 3307;
     $usuario = 'root';
-    $senha = "amadeu";
+    $senha = "amadeu29";
     $conexao = mysqli_connect($servidor, $usuario, $senha, $banco, $port);
 
     if(!$conexao){

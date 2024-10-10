@@ -20,7 +20,7 @@
             <div class="col-md-10" style="padding-top: 50px;">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form action="core/usuario_repositorio.php" method="post">
+                    <form action="core/usuarioRepositorio.php" method="post">
                         <input type="hidden" name="acao" value="login">
                         <div class="form-group">
                             <label for="email">E-mail</label>

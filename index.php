@@ -75,7 +75,7 @@
                                 $data = date_create($post['data_postagem']);
                                 $data = date_format($data, 'd/m/Y H:i:s');
                         ?>
-                        <a href="post_detalhe.php?post=<?php echo $post['id']?>" class="list-group-ite list-group-item-action">
+                        <a href="postDetalhe.php?post=<?php echo $post['id']?>" class="list-group-ite list-group-item-action">
                             <strong><?php echo $post['titulo']?></strong>
                             [<?php echo $post['nome']?>]
                             <span class="badge badge-dark"><?php echo $data?></span>
