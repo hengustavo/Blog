@@ -57,6 +57,12 @@
                             'like',
                             "%{$busca}%"
                         ];
+                        $criterio[] = [
+                            'OR',
+                            '@',
+                            'like',
+                            "%{$busca}%"
+                        ];
                     }
 
                     $posts = Buscar(
