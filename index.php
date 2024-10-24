@@ -47,6 +47,12 @@
                     if(!empty($busca)){
                         $criterio[] = [
                             'AND',
+                            'texto',
+                            'like',
+                            "%{$busca}%"
+                        ];
+                        $criterio[] = [
+                            'OR',
                             'titulo',
                             'like',
                             "%{$busca}%"
